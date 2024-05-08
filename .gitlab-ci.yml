@@ -1,0 +1,26 @@
+stages:
+  - jsDemo
+
+jsDemo:
+  stage: jsDemo
+
+  variables:
+    PORT: "8081"
+    TIMEOUT: "20"
+    POLLING_INTERVAL: "2"
+    FF_NETWORK_PER_BUILD: 1
+
+  services:
+    # # Service 1 - no dependencies
+    - name: registry.gitlab.com/testgroup204319/testdemo/pyserver
+      alias: service1
+
+    # Service 2 - depends on: Service 1
+    - name: registry.gitlab.com/testgroup204319/testdemo
+      alias: service2
+
+  before_script:
+    - echo "Services are up"
+
+  script:
+    - echo "Running tests"
